@@ -213,9 +213,17 @@ class Textarea extends React.Component {
   }
 };
 
+const testData = [
+  {name: "Dan Abramov", email: "https://avatars0.githubusercontent.com/u/810438?v=4", catogory: "@facebook", description: "test description", type: "giving"},
+  {name: "Sophie Alpert", email: "https://avatars2.githubusercontent.com/u/6820?v=4", catogory: "Humu", description: "test description2", type: "giving2"},
+  {name: "Sebastian Markbåge", email: "https://avatars2.githubusercontent.com/u/63648?v=4", catogory: "Facebook", description: "test description3", type: "giving3"},
+];
+
 // Create component for form
 export class Form extends React.Component {
+  
   render() {
+    const post = testData[0];
     return (
       <form method='' action=''>
         <Input
