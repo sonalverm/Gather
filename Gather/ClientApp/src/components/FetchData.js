@@ -44,8 +44,8 @@ export class FetchData extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel" >Explore</h1>
+        <p>This is a place to gather and exchange!</p>
         {contents}
       </div>
     );
