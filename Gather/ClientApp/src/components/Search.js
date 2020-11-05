@@ -30,7 +30,7 @@ export default class Search extends Component {
                     className="form-control mr-sm-2"
                     type="search"
                     defaultValue=""
-                    placeholder="Category"
+                    placeholder="Keyword"
                     value={this.state.searchString}
                     onChange={this.change}
                     required />
@@ -38,7 +38,7 @@ export default class Search extends Component {
                 <button
                     className="btn btn-danger my-2"
                     type="submit">
-                    Search
+                    -O
                 </button>
             </form>
         );

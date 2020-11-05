@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CardList from './Card';
-import Search from './Search';
+import {Filter} from './Filter';
 
 const testData = [
   {name: "Dan Abramov", title: "Harry Potter books available", category: "Books", description: "test description", type: "giving", email: "abc@xyz.com"},
@@ -19,31 +19,19 @@ export class FetchData extends Component {
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populatePostsData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderPostCards(posts) {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div class="row">
+        <div class="col-md-8">
+          <CardList data={posts}></CardList>
+        </div>
+        <div class="col-md-4">
+            <Filter></Filter>
+        </div>          
+      </div>
     );
   }
 
@@ -54,14 +42,14 @@ export class FetchData extends Component {
           <CardList data={this.state.posts}></CardList>
         </div>
         <div class="col-md-4">
-          <Search></Search>
+            <Filter></Filter>
         </div>          
       </div>
      );
     
     // let contents = this.state.loading
     //   ? <p><em>Loading...</em></p>
-    //   : FetchData.renderForecastsTable(this.state.forecasts);
+    //   : FetchData.renderPostCards(this.state.posts);
 
     // return (
     //   <div>
@@ -72,9 +60,9 @@ export class FetchData extends Component {
     // );
   }
 
-  async populateWeatherData() {
+  async populatePostsData() {
     const response = await fetch('weatherforecast');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ posts: data, loading: false });
   }
 }
