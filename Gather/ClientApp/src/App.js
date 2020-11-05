@@ -15,9 +15,8 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={FetchData} />
         <Route path='/post' component={Form} />
-        <Route path='/allpost' component={Home} />
+        <Route path='/misc' component={Home} />
       </Layout>
     );
   }
 }
-//Data Source=tcp:gatherdbserver.database.windows.net,1433;Initial Catalog=Gather_db;User Id=soupadh@gatherdbserver;Password=gather@123
