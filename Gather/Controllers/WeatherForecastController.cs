@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Gather.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     [EnableCors("MyPolicy")]
     [ApiController]
