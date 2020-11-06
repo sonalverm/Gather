@@ -94,6 +94,8 @@ class Radio extends React.Component {
             name={this.props.name || null}
             required={this.props.required || null}
             type='radio'
+            value={this.props.value1}
+            onChange={this.props.onchange}
           />
           {this.props.radiolabel1}
         </div>
@@ -103,6 +105,8 @@ class Radio extends React.Component {
             name={this.props.name || null}
             required={this.props.required || null}
             type='radio'
+            value={this.props.value2}
+            onChange={this.props.onchange}
           />
           {this.props.radiolabel2}
         </div>
@@ -237,8 +241,11 @@ export class Form extends React.Component {
           label='Type'
           radiolabel1=' Seek!!'
           radiolabel2=' Offer :)'
+          value1='Seek'
+          value2='Offer'
           name='radios'
           required='true'
+          onchange={event => { this.setState({ posttype: event.target.value }) }}
         />
         
         <Checkbox
