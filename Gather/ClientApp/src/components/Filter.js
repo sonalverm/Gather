@@ -161,7 +161,7 @@ export class Filter extends React.Component {
           hasLabel='true'
           htmlFor='select'
           label='Type'
-          options='Need Help!, Offering help :)'
+          options=' Need help!!, Offering help :)'
         />
         
         <Button
