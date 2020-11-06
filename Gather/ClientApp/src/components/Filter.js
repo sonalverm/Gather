@@ -163,11 +163,16 @@ export class Filter extends React.Component {
           label='Type'
           options='Seek!!, Offer :)'
         />
-        
+        <Select
+          hasLabel='true'
+          htmlFor='select'
+          label='Status'
+          options='Active, Closed'
+        />
         <Button
           type='submit'
           value='submit'
-          text='Apply'
+          text='Go'
         />
       </form>
     )
