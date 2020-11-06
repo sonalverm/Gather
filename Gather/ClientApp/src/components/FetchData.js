@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import CardList from './Card';
 import {Filter} from './Filter';
 
-const testData = [
+/*const testData = [
   {name: "Dan Abramov", title: "Harry Potter books available", category: "Books", description: "test description", type: "giving", email: "abc@xyz.com"},
   {name: "Sophie Alpert", title: "Plasma Donation", category: "Blood donation", description: "test description2", type: "giving2", email: "def@xyz.com"},
   {name: "Sebastian Markbåge", title: "Meetup", category: "Others", description: "test description3 balh blah ijweihroawhetgabgoubr awohoighwg gaohroigha4 gaorigoi4h gaoihrgh4jang  aoirnoiutrnnab gaojfi gatijanf aijtirumf aijfmf ai", type: "giving3", email: "pqr@xyz.com"},
-];
+];*/
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -14,7 +14,7 @@ export class FetchData extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      posts: testData, 
+      posts: [], 
       loading: true };
   }
 
@@ -60,9 +60,17 @@ export class FetchData extends Component {
     // );
   }
 
-  async populatePostsData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ posts: data, loading: false });
+    async populatePostsData() {
+      var postdata = [];
+      const response = await fetch('/postdetails', { mode: 'no-cors' }).then(function (res) {
+          console.log(res);
+          return res.json();
+      }).then(function (data) {
+          console.log(data);
+          postdata = data;          
+      }).catch((error) => {
+          console.log(error);
+      });
+      this.setState({ posts: postdata, loading: false });
   }
 }
