@@ -23,6 +23,7 @@ namespace Gather.Controllers
             _postContext = postContext;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public List<Post> Get()
         {
@@ -30,6 +31,7 @@ namespace Gather.Controllers
         }
 
         // GET api/<PostController>/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPost(int id)
         {
@@ -45,6 +47,7 @@ namespace Gather.Controllers
 
         // POST api/<PostController>
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<Post>> Post([FromBody] Post post)
         {
             post.CreatedAt = DateTime.Now;
@@ -56,6 +59,7 @@ namespace Gather.Controllers
 
         // PUT api/<PostController>/5
         [HttpPut("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Put(int id, [FromBody] Post post)
         {
             if (id != post.PostId)
@@ -86,6 +90,7 @@ namespace Gather.Controllers
 
         // DELETE api/<PostController>/5
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Delete(int id)
         {
             var obj = await _postContext.Post.FindAsync(id);
