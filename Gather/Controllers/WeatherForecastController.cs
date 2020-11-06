@@ -30,7 +30,6 @@ namespace Gather.Controllers
             return _postContext.Post.ToList();
         }
 
-        // GET api/<PostController>/5
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPost(int id)
@@ -45,7 +44,15 @@ namespace Gather.Controllers
             return obj;
         }
 
-        // POST api/<PostController>
+        [HttpGet("search")]
+        public List<Post> Search(string email = null, string category = null, string type = null)
+        {
+            IQueryable<Post> results = _postContext.Post.Where(x => ((!(email == null || email == "")) ? x.EmailId.Contains(email) : true)
+                && ((!(category == null || category == "")) ? x.Category.Equals(category) : true)
+                && ((!(type == null || type == "")) ? x.PostType.Equals(type) : true));
+            return results.ToList();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult<Post>> Post([FromBody] Post post)
@@ -57,7 +64,6 @@ namespace Gather.Controllers
             return CreatedAtAction(nameof(GetPost), new { id = post.PostId }, post);
         }
 
-        // PUT api/<PostController>/5
         [HttpPut("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Put(int id, [FromBody] Post post)
@@ -88,7 +94,6 @@ namespace Gather.Controllers
             return NoContent();
         }
 
-        // DELETE api/<PostController>/5
         [HttpDelete("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Delete(int id)
