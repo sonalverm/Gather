@@ -235,7 +235,7 @@ export class Form extends React.Component {
           hasLabel='true'
           htmlFor='radioOne'
           label='Type'
-          radiolabel1='Seek!!'
+          radiolabel1=' Seek!!'
           radiolabel2=' Offer :)'
           name='radios'
           required='true'
