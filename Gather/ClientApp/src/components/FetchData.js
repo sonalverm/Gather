@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CardList from './Card';
-import Search from './Search';
 import { authProvider } from '../auth/authProvider';
 import {Filter} from './Filter';
 

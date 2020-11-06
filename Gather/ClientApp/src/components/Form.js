@@ -235,8 +235,8 @@ export class Form extends React.Component {
           hasLabel='true'
           htmlFor='radioOne'
           label='Type'
-          radiolabel1=' Need help!!'
-          radiolabel2=' Offering help :)'
+          radiolabel1='Seek!!'
+          radiolabel2=' Offer :)'
           name='radios'
           required='true'
         />
@@ -244,7 +244,7 @@ export class Form extends React.Component {
         <Checkbox
           hasLabel='true'
           htmlFor='checkbox'
-          label='  I hearby agree that all the information provided here is correct and I would produce relevant documents for proof as and when required.'
+          label='  I hereby agree that all the information provided here is correct and I would produce relevant documents for proof as and when required.'
           required='true'
         />
         
