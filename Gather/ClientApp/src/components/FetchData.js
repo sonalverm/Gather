@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardList from './Card';
+import { authProvider } from '../auth/authProvider';
 import {Filter} from './Filter';
 
 /*const testData = [
@@ -18,7 +19,8 @@ export class FetchData extends Component {
       loading: true };
   }
 
-  componentDidMount() {
+async componentDidMount() {
+    //await authProvider.getAccessToken().then(res => this.setState({ token: res.accessToken }));
     this.populatePostsData();
   }
 

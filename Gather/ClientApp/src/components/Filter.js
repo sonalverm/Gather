@@ -161,7 +161,7 @@ export class Filter extends React.Component {
           hasLabel='true'
           htmlFor='select'
           label='Type'
-          options='Giving, Receiving'
+          options='Seek!!, Offer :)'
         />
         <Select
           hasLabel='true'

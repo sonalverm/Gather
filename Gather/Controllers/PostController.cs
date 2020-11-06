@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gather.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
