@@ -13,10 +13,11 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={FetchData} />
         <Route path='/post' component={Form} />
-        <Route path='/allpost' component={FetchData} />
+        <Route path='/allpost' component={Home} />
       </Layout>
     );
   }
 }
+//Data Source=tcp:gatherdbserver.database.windows.net,1433;Initial Catalog=Gather_db;User Id=soupadh@gatherdbserver;Password=gather@123

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import CardList from './Card';
 import Search from './Search';
 import { authProvider } from '../auth/authProvider';
+import {Filter} from './Filter';
 
-const testData = [
+/*const testData = [
   {name: "Dan Abramov", title: "Harry Potter books available", category: "Books", description: "test description", type: "giving", email: "abc@xyz.com"},
   {name: "Sophie Alpert", title: "Plasma Donation", category: "Blood donation", description: "test description2", type: "giving2", email: "def@xyz.com"},
   {name: "Sebastian Markbåge", title: "Meetup", category: "Others", description: "test description3 balh blah ijweihroawhetgabgoubr awohoighwg gaohroigha4 gaorigoi4h gaoihrgh4jang  aoirnoiutrnnab gaojfi gatijanf aijtirumf aijfmf ai", type: "giving3", email: "pqr@xyz.com"},
-];
+];*/
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -15,37 +16,25 @@ export class FetchData extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      posts: testData, 
+      posts: [], 
       loading: true };
   }
 
-  async componentDidMount() {
+async componentDidMount() {
     //await authProvider.getAccessToken().then(res => this.setState({ token: res.accessToken }));
-    this.populateWeatherData();
+    this.populatePostsData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderPostCards(posts) {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div class="row">
+        <div class="col-md-8">
+          <CardList data={posts}></CardList>
+        </div>
+        <div class="col-md-4">
+            <Filter></Filter>
+        </div>          
+      </div>
     );
   }
 
@@ -56,14 +45,14 @@ export class FetchData extends Component {
           <CardList data={this.state.posts}></CardList>
         </div>
         <div class="col-md-4">
-          <Search></Search>
+            <Filter></Filter>
         </div>          
       </div>
      );
     
     // let contents = this.state.loading
     //   ? <p><em>Loading...</em></p>
-    //   : FetchData.renderForecastsTable(this.state.forecasts);
+    //   : FetchData.renderPostCards(this.state.posts);
 
     // return (
     //   <div>
@@ -74,9 +63,17 @@ export class FetchData extends Component {
     // );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    async populatePostsData() {
+      var postdata = [];
+      const response = await fetch('/postdetails', { mode: 'no-cors' }).then(function (res) {
+          console.log(res);
+          return res.json();
+      }).then(function (data) {
+          console.log(data);
+          postdata = data;          
+      }).catch((error) => {
+          console.log(error);
+      });
+      this.setState({ posts: postdata, loading: false });
   }
 }
