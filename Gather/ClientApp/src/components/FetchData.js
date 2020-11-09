@@ -15,9 +15,51 @@ export class FetchData extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      posts: [], 
+        posts: [],
+        filterPosts: [],
       loading: true };
-  }
+    }
+
+    handleFilter = (obj) => {
+        const { posts } = this.state;
+        let filteredPosts = [];
+        let emailMatched = false;
+        let categoryMatched = false;
+        let typeMatched = false;
+        for (let i = 0; i < posts.length; i++) {
+            if (!(obj.email === null || obj.email === "")) {
+                if (posts[i].emailId === obj.email) {
+                    emailMatched = true;
+                } else {
+                    emailMatched = false;
+                }
+            } else {
+                emailMatched = true;
+            }
+            if (!(obj.category === null || obj.category === "")) {
+                if (posts[i].category === obj.category) {
+                    categoryMatched = true;
+                } else {
+                    categoryMatched = false;
+                }
+            } else {
+                categoryMatched = true;
+            }
+            if (!(obj.type === null || obj.type === "")) {
+                if (posts[i].postType === obj.type) {
+                    typeMatched = true;
+                } else {
+                    typeMatched = false;
+                }
+            } else {
+                typeMatched = true;
+            }
+            if (emailMatched && categoryMatched && typeMatched) {
+                filteredPosts.push(posts[i]);
+            }
+        }
+        this.setState({ filterPosts: filteredPosts });
+    }
 
 async componentDidMount() {
     //await authProvider.getAccessToken().then(res => this.setState({ token: res.accessToken }));
@@ -40,11 +82,11 @@ async componentDidMount() {
   render() {
     return(
       <div class="row">
-        <div class="col-md-8">
-          <CardList data={this.state.posts}></CardList>
+            <div class="col-md-8">
+                <CardList data={this.state.filterPosts.length ? this.state.filterPosts : this.state.posts}></CardList>
         </div>
         <div class="col-md-4">
-            <Filter></Filter>
+                <Filter filterApply={this.handleFilter}></Filter>
         </div>          
       </div>
      );
@@ -65,7 +107,7 @@ async componentDidMount() {
     async populatePostsData() {
       var postdata = [];
       const response = await fetch('/postdetails', { mode: 'no-cors' }).then(function (res) {
-          console.log(res);
+          //console.log(res);
           return res.json();
       }).then(function (data) {
           console.log(data);

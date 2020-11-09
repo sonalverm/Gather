@@ -16,7 +16,7 @@ export class Cards extends React.Component {
          <h6 class="card-subtitle mb-2 text-muted">{cardData.category}</h6>
          <p class="card-text">{cardData.description}</p>
          <a href="#" class="card-link">{cardData.name}</a>
-         <a href="#" class="card-link">{cardData.email}</a>
+         <a href="#" class="card-link">{cardData.emailId}</a>
         </div>
         </div>
       );
