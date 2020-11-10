@@ -46,6 +46,7 @@ namespace Gather.Controllers
         public async Task<ActionResult<Post>> Post([FromBody] Post post)
         {
             post.CreatedAt = DateTime.Now;
+            post.UpdatedAt = DateTime.Now;
             _postContext.Post.Add(post);
             await _postContext.SaveChangesAsync();
 
@@ -60,7 +61,7 @@ namespace Gather.Controllers
             {
                 return BadRequest();
             }
-            post.CreatedAt = DateTime.Now;
+            post.UpdatedAt = DateTime.Now;
             _postContext.Entry(post).State = EntityState.Modified;
 
             try
