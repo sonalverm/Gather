@@ -186,7 +186,7 @@ export class Filter extends React.Component {
                 name='filter_category'
                 value={this.state.filterCategory}
                 onChange={(event) => this.updateFilterCategory(event)}
-                options='Books, Travel, Gadgets, Knowledge Sharing, Meetup, Collaborate, Blood Donation, Others'
+                options='Books, Blood Donation, Travel, Gadgets, Knowledge Sharing, Meetup, Collaborate, Other'
             />
             <Select
                 hasLabel='true'
