@@ -5,9 +5,10 @@ class Button extends React.Component {
   render() {
     return (
         <button
-          type={this.props.type || 'button'}
-          value={this.props.value || null}
-          class="btn btn-danger"
+            type={this.props.type || 'button'}
+            value={this.props.value || null}
+            class="btn btn-danger"
+            onClick={this.props.onClick}
         >
           {this.props.text}
         </button>
@@ -53,7 +54,9 @@ class Input extends React.Component {
       <div class="form-group row">
         <div class="col-sm-10">
             <input
-            id={this.props.htmlFor}
+             id={this.props.htmlFor}
+                    value={this.props.value || null}
+                    onChange={this.props.onChange}
             max={this.props.max || null}
             min={this.props.min || null}
             name={this.props.name || null}
@@ -114,7 +117,7 @@ class Select extends React.Component {
 
     // Generate list of options
     const selectOptionsList = selectOptions.map((selectOption, index) => {
-      return <option key={index} value={index}>{selectOption}</option>
+      return <option key={index} value={selectOption}>{selectOption}</option>
     });
 
     return (
@@ -125,6 +128,8 @@ class Select extends React.Component {
           defaultValue=''
           id={this.props.htmlFor}
           name={this.props.name || null}
+          value={this.props.value || null}
+          onChange={this.props.onChange}
           required={this.props.required || null}
         >
           <option value='' disabled>{this.props.label}</option>
@@ -139,42 +144,67 @@ class Select extends React.Component {
 
 // Create component for form
 export class Filter extends React.Component {
-  
-  render() {
-    return (
-      <form method='' action=''>
-        <h6>Search By:</h6>  
-        <Input
-          hasLabel='true'
-          htmlFor='emailInput'
-          label='Email'
-          type='email'
-          placeholder='Email'
-        />
-        <Select
-          hasLabel='true'
-          htmlFor='select'
-          label='Category'
-          options='Books, Travel, Gadgets, Knoledge Sharing, Meetup, Collaborate, Others'
-        />
-        <Select
-          hasLabel='true'
-          htmlFor='select'
-          label='Type'
-          options='Seek!!, Offer :)'
-        />
-        <Select
-          hasLabel='true'
-          htmlFor='select'
-          label='Status'
-          options='Active, Closed'
-        />
-        <Button
-          type='submit'
-          value='submit'
-          text='Go'
-        />
-      </form>
-    )
-  }
+    state = {
+        filterEmail: '',
+        filterCategory: null,
+        filterType: null
+    }
+
+    updateFilterEmail = (event) => {
+        this.setState({ filterEmail: event.target.value });
+    }
+    updateFilterCategory = (event) => {
+        this.setState({ filterCategory: event.target.value });
+    }
+    updateFilterType = (event) => {
+        this.setState({ filterType: event.target.value });
+    }
+
+    handleApplyFilter = () => {
+        const { filterEmail, filterCategory, filterType } = this.state;
+        this.props.filterApply({ email: filterEmail, category: filterCategory, type: filterType });
+    }
+
+    render() {
+        return (
+            <>
+            <h6>Search By:</h6>  
+            <Input
+                hasLabel='true'
+                htmlFor='emailInput'
+                label='Email'
+                type='email'
+                placeholder='Email'
+                name='filter_email'
+                value={this.state.filterEmail}
+                onChange={this.updateFilterEmail}
+            />
+            <Select
+                hasLabel='true'
+                htmlFor='select'
+                label='Category'
+                name='filter_category'
+                value={this.state.filterCategory}
+                onChange={(event) => this.updateFilterCategory(event)}
+                options='Books, Travel, Gadgets, Knowledge Sharing, Meetup, Collaborate, Blood Donation, Others'
+            />
+            <Select
+                hasLabel='true'
+                htmlFor='select'
+                label='Type'
+                name='filter_type'
+                value={this.state.filterType}
+                onChange={(event) => this.updateFilterType(event)}
+                options='Giving, Receiving'
+            />
+        
+            <Button
+                type='submit'
+                value='submit'
+                    text='Apply'
+                    onClick={this.handleApplyFilter}
+                />
+                </>
+        )
+    }
 }

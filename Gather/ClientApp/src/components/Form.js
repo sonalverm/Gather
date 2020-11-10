@@ -32,47 +32,45 @@ class Label extends React.Component {
 }
 
 // Create component for radio input
-// class Radio extends React.Component {
-//   render() {
-//     // Get all options from option prop
-//     const radioOptions = this.props.options.split(', ');
-
-//     // Generate list of options
-//     const radioOptionsList = radioOptions.map((radioOption) => {
-//       return <input 
-//                 type="radio"
-//                 required={this.props.required || null}>
-//                 {radioOption}
-//             </input>
-//     });
-//     return (
-//       <fieldset class="form-group">
-//         <div class="row">
-//         <Label
-//           hasLabel={this.props.hasLabel}
-//           htmlFor={this.props.htmlFor}
-//           label={this.props.label}
-//         />
-//         {/* <div class="col-sm-10">
-//           {radioOptionsList}
-//         </div> */}
-//         <div class="form-check">
-//           <input
-//             id={this.props.htmlFor}
-//             name={this.props.name || null}
-//             required={this.props.required || null}
-//             type='radio'
-//             //value={this.props.value}
-//             //onChange={this.props.onchange}
-//           />
-//           {this.props.radiolabel2}
-//         </div>
-//         </div>
-        
-//       </fieldset>
-//     );
-//   }
-// }
+class Radio extends React.Component {
+  render() {
+    return (
+      <fieldset class="form-group">
+        <div class="row">
+        <Label
+          hasLabel={this.props.hasLabel}
+          htmlFor={this.props.htmlFor}
+          label={this.props.label}
+        />
+        <div class="col-sm-10">
+        <div class="form-check">
+          <input
+            id={this.props.htmlFor}
+            name={this.props.name || null}
+            required={this.props.required || null}
+            type='radio'
+            value={this.props.value1}
+            onChange={this.props.onchange}
+          />
+          {this.props.radiolabel1}
+        </div>
+        <div class="form-check">
+          <input
+            id={this.props.htmlFor}
+            name={this.props.name || null}
+            required={this.props.required || null}
+            type='radio'
+            value={this.props.value2}
+            onChange={this.props.onchange}
+          />
+          {this.props.radiolabel2}
+        </div>
+        </div>
+        </div>
+      </fieldset>
+    );
+  }
+}
 
 // Create component for select input
 class Select extends React.Component {
@@ -188,28 +186,12 @@ class Input extends React.Component {
 // Create component for form
 export class Form extends React.Component {
 
-  state = {
-      name: '',
-      email: '',
-      title: '',
-      description:'',
-      category: '',
-      posttype:'',
-      status: 'Active',
-      
-  }
+  state = {name: '',email: '',title: '',description:'',category: '',posttype:'',status: 'Active'}
 
   handleSubmit = async (event) =>{
     event.preventDefault();
 
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email:"df@hj.com", title: 'React POST Request Example', description:"fuejfn", category:"blah", status:"active", posttype: "giving" }),
-      mode: 'no-cors'
-    };
-
-    fetch('/postdetails', requestOptions)
+    fetch('/postdetails', {  method: 'POST', headers: { 'Content-Type': 'application/json' }, body:JSON.stringify(this.state)})
     .then(response=>response.json)
     .then(data=>console.log(data));
     console.log(this.state.description);
@@ -256,6 +238,17 @@ export class Form extends React.Component {
           required='true'
           type='password'
         /> */}
+
+        
+        <Input
+          hasLabel='true'
+          htmlFor='postTitle'
+          label='Title'
+          required='true'
+          type='title'
+          value={this.state.title}
+          onchange={event =>{this.setState({title: event.target.value})}}
+        />
         
         <Select
           hasLabel='true'
@@ -276,15 +269,18 @@ export class Form extends React.Component {
           onchange={event =>{this.setState({description: event.target.value})}}
         />
 
-        {/* <Radio
+        <Radio
           hasLabel='true'
           htmlFor='radioOne'
           label='Type'
-          options='Offer, Seek'
+          radiolabel1=' Seek!!'
+          radiolabel2=' Offer :)'
+          value1='Seek'
+          value2='Offer'
+          name='radios'
           required='true'
-          value={this.state.postType}
-          onchange={event =>{this.setState({postType: event.target.value})}}
-        /> */}
+          onchange={event => { this.setState({ posttype: event.target.value }) }}
+        />
         
         <Checkbox
           hasLabel='true'

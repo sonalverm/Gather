@@ -16,5 +16,7 @@ namespace Gather.Models
         public string Status { get; set; }
         public string PostType { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public string Name { get; set; }
     }
 }
