@@ -80,7 +80,7 @@ class Select extends React.Component {
 
     // Generate list of options
     const selectOptionsList = selectOptions.map((selectOption, index) => {
-      return <option key={index} value={index}>{selectOption}</option>
+      return <option key={index} value={selectOption}>{selectOption}</option>
     });
 
     return (
@@ -186,14 +186,15 @@ class Input extends React.Component {
 // Create component for form
 export class Form extends React.Component {
 
-  state = {name: '',email: '',title: '',description:'',category: '',posttype:'',status: 'Active'}
+  state = {name: '',emailId: '',title: '',description:'',category: '',posttype:'',status: 'Active'}
+
 
   handleSubmit = async (event) =>{
     event.preventDefault();
 
     fetch('/postdetails', {  method: 'POST', headers: { 'Content-Type': 'application/json' }, body:JSON.stringify(this.state)})
     .then(response=>response.json)
-    .then(data=>console.log(data));
+    .then(alert("Successfully posted!"));
     console.log(this.state.description);
   }
   
@@ -216,8 +217,8 @@ export class Form extends React.Component {
           label='Email'
           required='true'
           type='email'
-          value={this.state.email}
-          onchange={event =>{this.setState({email: event.target.value})}}
+          value={this.state.emailId}
+          onchange={event =>{this.setState({emailId: event.target.value})}}
         />
         
         {/* <Input
@@ -254,7 +255,7 @@ export class Form extends React.Component {
           hasLabel='true'
           htmlFor='select'
           label='Category'
-          options='Travel, Knowledge Sharing, Books, Gadgets, Meetup'
+          options='Books, Blood Donation, Travel, Gadgets, Knowledge Sharing, Meetup, Collaborate, Other'
           required='true'
           value={this.state.category}
           onchange={event =>{this.setState({category: event.target.value})}}
