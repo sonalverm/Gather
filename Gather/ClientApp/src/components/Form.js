@@ -1,22 +1,5 @@
 import * as React from 'react';
 
-// Create component for button
-class Button extends React.Component {
-  render() {
-    return (
-      <fieldset class="form-group row">
-        <button
-          type={this.props.type || 'button'}
-          value={this.props.value || null}
-          class="btn btn-danger"
-        >
-          {this.props.text}
-        </button>
-      </fieldset>
-    );
-  }
-};
-
 // Create component for checkbox input
 class Checkbox extends React.Component {
   render() {
@@ -45,34 +28,6 @@ class Label extends React.Component {
     if (this.props.hasLabel === 'true') {
       return <label htmlFor={this.props.htmlFor} class="col-sm-2 col-form-label">{this.props.label}</label>
     }
-  }
-}
-
-// Create component for input
-class Input extends React.Component {
-  render() {
-    return (
-      <div class="form-group row">
-        <Label
-          hasLabel={this.props.hasLabel}
-          htmlFor={this.props.htmlFor}
-          label={this.props.label}
-        />
-        <div class="col-sm-10">
-            <input
-            id={this.props.htmlFor}
-            max={this.props.max || null}
-            min={this.props.min || null}
-            name={this.props.name || null}
-            placeholder={this.props.placeholder || null}
-            required={this.props.required || null}
-            step={this.props.step || null}
-            type={this.props.type || 'text'}
-            class="form-control"
-            />
-        </div>
-      </div>
-    );
   }
 }
 
@@ -142,6 +97,8 @@ class Select extends React.Component {
           id={this.props.htmlFor}
           name={this.props.name || null}
           required={this.props.required || null}
+          value={this.props.value}
+          onChange={this.props.onchange}
         >
           <option value='' disabled>Select one option</option>
 
@@ -171,6 +128,8 @@ class Textarea extends React.Component {
           name={this.props.name || null}
           required={this.props.required || null}
           rows={this.props.rows || null}
+          value={this.props.value}
+          onChange={this.props.onchange}
         >
         </textarea>
         </div>
@@ -179,18 +138,76 @@ class Textarea extends React.Component {
   }
 };
 
+// Create component for button
+class Button extends React.Component {
+  render() {
+    return (
+      <fieldset class="form-group row">
+        <button
+          type={this.props.type || 'button'}
+          value={this.props.value || null}
+          class="btn btn-danger"
+        >
+          {this.props.text}
+        </button>
+      </fieldset>
+    );
+  }
+};
+
+class Input extends React.Component {
+  render() {
+    return (
+      <div class="form-group row">
+        <Label
+          hasLabel={this.props.hasLabel}
+          htmlFor={this.props.htmlFor}
+          label={this.props.label}
+        />
+        <div class="col-sm-10">
+            <input
+            id={this.props.htmlFor}
+            max={this.props.max || null}
+            min={this.props.min || null}
+            name={this.props.name || null}
+            placeholder={this.props.placeholder || null}
+            required={this.props.required || null}
+            step={this.props.step || null}
+            type={this.props.type || 'text'}
+            class="form-control"
+            value={this.props.value}
+            onChange={this.props.onchange}
+            />
+        </div>
+      </div>
+    );
+  }
+}
 // Create component for form
 export class Form extends React.Component {
+
+  state = {name: '',email: '',title: '',description:'',category: '',posttype:'',status: 'Active'}
+
+  handleSubmit = async (event) =>{
+    event.preventDefault();
+
+    fetch('/postdetails', {  method: 'POST', headers: { 'Content-Type': 'application/json' }, body:JSON.stringify(this.state)})
+    .then(response=>response.json)
+    .then(data=>console.log(data));
+    console.log(this.state.description);
+  }
   
   render() {
     return (
-      <form method='' action=''>
+      <form method='' action='' onSubmit={this.handleSubmit}>
         <Input
             hasLabel='true'
             htmlFor='textInput'
             label='Name'
             required='true'
             type='text'
+            value={this.state.name}
+            onchange={event =>{this.setState({name: event.target.value})}}
         />
         
         <Input
@@ -199,6 +216,8 @@ export class Form extends React.Component {
           label='Email'
           required='true'
           type='email'
+          value={this.state.email}
+          onchange={event =>{this.setState({email: event.target.value})}}
         />
         
         {/* <Input
@@ -219,6 +238,17 @@ export class Form extends React.Component {
           required='true'
           type='password'
         /> */}
+
+        
+        <Input
+          hasLabel='true'
+          htmlFor='postTitle'
+          label='Title'
+          required='true'
+          type='title'
+          value={this.state.title}
+          onchange={event =>{this.setState({title: event.target.value})}}
+        />
         
         <Select
           hasLabel='true'
@@ -226,6 +256,8 @@ export class Form extends React.Component {
           label='Category'
           options='Travel, Knowledge Sharing, Books, Gadgets, Meetup'
           required='true'
+          value={this.state.category}
+          onchange={event =>{this.setState({category: event.target.value})}}
         />
         
         <Textarea
@@ -233,6 +265,8 @@ export class Form extends React.Component {
           htmlFor='textarea'
           label='Description'
           required='true'
+          value={this.state.description}
+          onchange={event =>{this.setState({description: event.target.value})}}
         />
 
         <Radio
