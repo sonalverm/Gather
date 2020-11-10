@@ -195,7 +195,7 @@ export class Filter extends React.Component {
                 name='filter_type'
                 value={this.state.filterType}
                 onChange={(event) => this.updateFilterType(event)}
-                options='Giving, Receiving'
+                options='Seek, Offer'
             />
         
             <Button
